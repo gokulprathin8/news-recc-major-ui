@@ -1,11 +1,11 @@
-import './App.css';
-import Homepage from "./components/homepage";
+import { BrowserRouter } from "react-router-dom";
+import CustomRouter from "./components/commons/router";
 
 function App() {
   return (
-    <div>
-      <Homepage />
-    </div>
+    <BrowserRouter>
+        <CustomRouter />
+    </BrowserRouter>
   );
 }
 

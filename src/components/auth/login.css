@@ -1,0 +1,109 @@
+.core-css {
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    align-self: center;
+}
+
+.image-specs {
+    margin-top: 6%;
+    height: 15rem;
+    width: 15rem;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    align-self: center;
+}
+
+.form-input-styler {
+    border: 1px solid lightgray;
+    padding: 0 24px 8px 24px;
+    margin-bottom: 8px;
+    text-align: start;
+    border-radius: 4px;
+}
+
+
+.button-customizer {
+    background-color: black !important;
+    border: none !important;
+}
+
+.contain-inputs {
+    padding-left: 45rem;
+    padding-right: 45rem;
+}
+
+@media (max-width: 600px) {
+    .image-specs {
+        margin-top: 20%;
+    }
+
+    .contain-inputs {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 1000px) {
+
+    .image-specs {
+        margin-top: 20%;
+        height: 15rem;
+        width: 15rem;
+        align-items: center;
+        align-content: center;
+        text-align: center;
+        align-self: center;
+    }
+
+    .contain-inputs {
+        padding-left: 90px;
+        padding-right: 90px;
+    }
+}
+
+@media (min-width: 1001px) and (max-width: 1337px) {
+    .image-specs {
+        margin-top: 10%;
+    }
+
+    .contain-inputs {
+        padding-left: 38%;
+        padding-right: 38%;
+    }
+
+}
+
+@media (min-width: 1338px) and (max-width: 1920px) {
+
+}
+
+
+
+/*@media (min-width: 1000px) and (max-width: 1599px) {*/
+
+/*    .image-specs {*/
+/*        margin-top: 5%;*/
+/*    }*/
+
+/*}*/
+
+
+/*@media (max-width: 1600px) {*/
+
+/*    .image-specs {*/
+/*        margin-top: 10%;*/
+/*    }*/
+
+/*    .contain-inputs {*/
+/*        padding-left: 10%;*/
+/*        padding-right: 10%;*/
+/*    }*/
+
+/*}*/
+
+
+
+
+

@@ -2,20 +2,26 @@ import React from "react";
 import { ReactComponent as BrandingImage } from "../../assets/images/logo.svg";
 import {Form, FormControl, Nav, Button, NavDropdown, Navbar, Container} from "react-bootstrap";
 import "./navbar.css";
+import {Link, NavLink} from "react-router-dom";
 
 const NavbarCustom = () => {
     return (
         <>
             <Container>
             <Navbar expand="lg" fixed="top" className="margin-nav" bg="light">
-                <Navbar.Brand href="#home">
-                    <BrandingImage style={{ height: 50, width: 50 }}/>
-                </Navbar.Brand>
+                <Link to="/">
+                    <Navbar.Brand href="#home">
+                        <BrandingImage style={{ height: 50, width: 50 }}/>
+                    </Navbar.Brand>
+                </Link>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mx-auto">
                         <div className="nav-items">
-                            <Nav.Link href="#home">HOME</Nav.Link>
+                            <Link to="/" style={{ textDecoration: "none" }}>
+                                <Nav.Link href="#home">HOME</Nav.Link>
+                            </Link>
+
                             <Nav.Link href="#link">LIFE STYLE</Nav.Link>
                             <Nav.Link href="#link">TRAVEL</Nav.Link>
                             <Nav.Link href="#link">FASHION</Nav.Link>
@@ -32,7 +38,10 @@ const NavbarCustom = () => {
                         </div>
 
                     </Nav>
-                    <Button className="nav-button" variant="outline-primary" >Login</Button>{' '}
+                    <Link to="/login">
+                        <Button className="nav-button" variant="outline-primary" >Login</Button>{' '}
+                    </Link>
+
                     <Button className="nav-button" variant="outline-primary">Register</Button>{' '}
                 </Navbar.Collapse>
             </Navbar>
