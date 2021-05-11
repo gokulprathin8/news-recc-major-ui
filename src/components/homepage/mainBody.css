@@ -1,0 +1,35 @@
+.customButton {
+    background-color: white !important;
+    color: orangered !important;
+    align-items: end !important;
+    border: none !important;
+    align-content: end !important;
+    text-align: right !important;
+}
+
+.right-side-bar-heading {
+    color: orangered !important;
+}
+
+.custom-side-bg {
+    background-color: #F6F6F6;
+}
+
+.side-card-customize {
+    background-color: inherit !important;
+    border: none !important;
+}
+
+.bottomBar-side {
+    border-color: orangered !important;
+    border-bottom: 1px !important;
+}
+
+.tag-effect {
+    margin: 5px;
+    color: #707070;
+    background-color: #E8E8E8;
+    border-radius: 5px;
+    display: flex;
+    flex-wrap: wrap;
+}
