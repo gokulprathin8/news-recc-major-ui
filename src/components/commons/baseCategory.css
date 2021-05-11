@@ -1,0 +1,10 @@
+.customButton {
+  background-color: white !important;
+  color: orangered !important;
+  align-items: end !important;
+  border: none !important;
+  align-content: end !important;
+  text-align: right !important;
+  align-items: flex-end !important;
+  text-align: end !important;
+}
