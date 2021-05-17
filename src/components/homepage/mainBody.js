@@ -1,98 +1,59 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {Button, Card, Col, Container, Row} from "react-bootstrap";
 import { Calendar, MessageCircle, Eye } from "react-feather";
+import { connect } from "react-redux";
 import "./mainBody.css";
+import {fetchCategory , fetchNews} from "../../redux/actions";
 
-const HomepageBody = () => {
+const HomepageBody = (props) => {
+    useEffect(() => {
+        props.fetchCategory();
+        props.fetchNews();
+    }, []);
+
+
     return (
         <React.Fragment>
             <Container>
 
                 <Row>
                     <Col  xs={8}>
-                        <Card>
-                            <Card.Img variant="top" style={{ height: 600 }} src="https://images.unsplash.com/photo-1478940020726-e9e191651f1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" />
-                            <Card.Body style={{ textAlign: 'center' }}>
-                                <Card.Title>Certainty listening no behaviour existence assurance situation</Card.Title>
 
-                                <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
-                                    <p style={{ paddingRight: 5, paddingLeft: 5 }}> admin </p>
-                                    <Calendar />
-                                    <p style={{ paddingRight: 5, paddingLeft: 5 }}> july / 15 / 2018 </p>
-                                    <MessageCircle />
-                                    <p style={{ paddingRight: 5, paddingLeft: 5 }}> 01 </p>
-                                    <Eye />
-                                    <p style={{ paddingRight: 5, paddingLeft: 5 }}> 301 </p>
-                                </div>
+                        {props.news.map((elem) => {
+                            return (
+                            <React.Fragment>
 
+                                <Card>
+                                    <Card.Img variant="top" style={{ height: 600 }} src="https://images.unsplash.com/photo-1478940020726-e9e191651f1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" />
+                                    <Card.Body style={{ textAlign: 'center' }}>
+                                        <Card.Title>{elem.title}</Card.Title>
 
+                                        <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
+                                            <p style={{ paddingRight: 5, paddingLeft: 5 }}> {elem.author.username} </p>
+                                            <Calendar />
+                                            <p style={{ paddingRight: 5, paddingLeft: 5 }}>{elem.created_at.split('T')[0]} </p>
+                                            <MessageCircle />
+                                            <p style={{ paddingRight: 5, paddingLeft: 5 }}> 01 </p>
+                                            <Eye />
+                                            <p style={{ paddingRight: 5, paddingLeft: 5 }}> 301 </p>
+                                        </div>
 
-                                <Card.Text>
-                                    We denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms
-                                    of pleasure of the moment, so blinded by desire
-                                </Card.Text>
-                                <Button className="customButton" variant="primary">READ MORE >></Button>
-                            </Card.Body>
-                        </Card>
+                                        <Card.Text>
+                                            {elem.description}
+                                        </Card.Text>
+                                        <Button className="customButton" variant="primary">READ MORE >></Button>
+                                    </Card.Body>
+                                </Card>
 
-
-                        <br/><br/>
-
-                        <Card>
-                            <Card.Img variant="top" style={{ height: 600 }} src="https://images.unsplash.com/photo-1504465039710-0f49c0a47eb7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80" />
-                            <Card.Body style={{ textAlign: 'center' }}>
-                                <Card.Title>Certainty listening no behaviour existence assurance situation</Card.Title>
-
-                                <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
-                                    <p style={{ paddingRight: 5, paddingLeft: 5 }}> admin </p>
-                                    <Calendar />
-                                    <p style={{ paddingRight: 5, paddingLeft: 5 }}> july / 15 / 2018 </p>
-                                    <MessageCircle />
-                                    <p style={{ paddingRight: 5, paddingLeft: 5 }}> 01 </p>
-                                    <Eye />
-                                    <p style={{ paddingRight: 5, paddingLeft: 5 }}> 301 </p>
-                                </div>
+                            <br/><br/>
+                            </React.Fragment>
+                            )
+                        })}
 
 
 
-                                <Card.Text>
-                                    We denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms
-                                    of pleasure of the moment, so blinded by desire
-                                </Card.Text>
-                                <Button className="customButton" variant="primary">READ MORE >></Button>
-                            </Card.Body>
-                        </Card>
 
 
-                        <br/><br/>
-
-                        <Card>
-                            <Card.Img variant="top" style={{ height: 600 }} src="https://images.unsplash.com/photo-1560523160-754a9e25c68f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1320&q=80" />
-                            <Card.Body style={{ textAlign: 'center' }}>
-                                <Card.Title>Certainty listening no behaviour existence assurance situation</Card.Title>
-
-                                <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
-                                    <p style={{ paddingRight: 5, paddingLeft: 5 }}> admin </p>
-                                    <Calendar />
-                                    <p style={{ paddingRight: 5, paddingLeft: 5 }}> july / 15 / 2018 </p>
-                                    <MessageCircle />
-                                    <p style={{ paddingRight: 5, paddingLeft: 5 }}> 01 </p>
-                                    <Eye />
-                                    <p style={{ paddingRight: 5, paddingLeft: 5 }}> 301 </p>
-                                </div>
-
-
-
-                                <Card.Text>
-                                    We denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms
-                                    of pleasure of the moment, so blinded by desire
-                                </Card.Text>
-                                <Button className="customButton" variant="primary">READ MORE >></Button>
-                            </Card.Body>
-                        </Card>
-
-
-                        <br/><br/>
 
                     </Col>
 
@@ -200,14 +161,19 @@ const HomepageBody = () => {
                                 <hr style={{ color: "orangered" }}/>
 
                                 <div style={{ paddingLeft: 20 }}>
-                                    <p>LIFE STYLE   (13)</p>
-                                    <p>BUSINESS   (06)</p>
-                                    <p>DESIGN   (16)</p>
-                                    <p>PHOTOGRAPHY   (11)</p>
-                                    <p>TRAVEL   (8)</p>
-                                    <p>NATURE   (9)</p>
-                                    <p>PLACES   (4)</p>
-                                    <p>FASHION   (10)</p>
+                                    {props.category.map((elem) => {
+                                        return (
+                                            <p> {elem.name} </p>
+                                        )
+                                    })}
+                                    {/*<p>LIFE STYLE   (13)</p>*/}
+                                    {/*<p>BUSINESS   (06)</p>*/}
+                                    {/*<p>DESIGN   (16)</p>*/}
+                                    {/*<p>PHOTOGRAPHY   (11)</p>*/}
+                                    {/*<p>TRAVEL   (8)</p>*/}
+                                    {/*<p>NATURE   (9)</p>*/}
+                                    {/*<p>PLACES   (4)</p>*/}
+                                    {/*<p>FASHION   (10)</p>*/}
                                 </div>
 
                                 <div style={{ margin: 20 }} />
@@ -234,4 +200,14 @@ const HomepageBody = () => {
     )
 }
 
-export default HomepageBody;
+const mapStateToProps = (state) => {
+    return {
+        category: state.category.getCategory,
+        news: state.news.getNews
+    }
+}
+
+export default connect(mapStateToProps, {
+    fetchCategory,
+    fetchNews
+})(HomepageBody);

@@ -1,16 +1,16 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Login from "../auth/login";
-import lifeStyle from "../catogeries/lifestyle";
-import politics from "../catogeries/politics";
-import travel from "../catogeries/travel";
+import lifeStyle from "../categories/lifestyle";
+import politics from "../categories/politics";
+import travel from "../categories/travel";
 import Homepage from "../homepage";
-import fashion from "./../catogeries/fashion";
-import entertainment from "./../catogeries/entertainment";
-import local from "./../catogeries/local";
-import interbational from "./../catogeries/international";
-import sports from "./../catogeries/sports";
-import contact from "./../catogeries/contact";
+import fashion from "../categories/fashion";
+import entertainment from "../categories/entertainment";
+import local from "../categories/local";
+import interbational from "../categories/international";
+import sports from "../categories/sports";
+import contact from "../categories/contact";
 
 const CustomRouter = () => {
   return (

@@ -5,10 +5,28 @@ import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import reportWebVitals from './reportWebVitals';
 
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { createStore, applyMiddleware, compose } from "redux";
+import reduxThunk from "redux-thunk";
+import reducers from "./redux/reducers";
+import {persistStore} from "redux-persist";
+
+const composeEnchancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose();
+const store = createStore(
+    reducers,
+    composeEnchancers(applyMiddleware(reduxThunk))
+);
+
+const persistor = persistStore(store);
+
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <Provider store={store}>
+        <PersistGate persistor={persistor}>
+            <App />
+        </PersistGate>
+    </Provider>,
   document.getElementById('root')
 );
 
