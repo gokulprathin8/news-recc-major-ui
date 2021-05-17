@@ -9,6 +9,7 @@ import {fetchCategory, fetchLatestNews, fetchNews, predict} from "../../redux/ac
 const HomepageBody = (props) => {
     let history = useHistory();
     let predictionValue = '';
+    let immortalId = 0;
 
     useEffect(() => {
         props.fetchLatestNews();
@@ -94,6 +95,14 @@ const HomepageBody = (props) => {
                 <Row>
                     <Col  xs={8}>
                         {aggrigateBuilder()}
+                        {
+                            props.category.map((elem) => {
+                                if (elem.name === predictionValue) {
+                                    immortalId = elem.id;
+                                }
+                            })
+
+                        }
                         {props.news && props.news.getNews.map((elem) => {
                             return (
                             <React.Fragment>

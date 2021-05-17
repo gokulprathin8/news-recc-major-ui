@@ -33,20 +33,38 @@ const NavbarCustom = (props) => {
                   <Nav.Link href="#home">HOME</Nav.Link>
                 </Link>
 
-                <Nav.Link href="lifestyle">LIFE STYLE</Nav.Link>
-                <Nav.Link href="travel">TRAVEL</Nav.Link>
+                <Link to={{ pathname: "/category", state: {category: 'LifeStyle'} }} style={{ textDecoration: 'none' }} >
+                  <Nav.Link href="lifestyle">LIFE STYLE</Nav.Link>
+                </Link>
+
+                <Link to={{ pathname: "/category", state: {category: 'Travel'} }} style={{ textDecoration: 'none' }} >
+                  <Nav.Link href="travel">TRAVEL</Nav.Link>
+                </Link>
+
+                <Link to={{ pathname: "/category", state: {category: 'Fashion'} }} style={{ textDecoration: 'none' }} >
                 <Nav.Link href="fashion">FASHION</Nav.Link>
-                <Nav.Link href="politics">POLITICS</Nav.Link>
+                </Link>
+
+                <Link to={{ pathname: "/category", state: {category: 'Politics'} }} style={{ textDecoration: 'none' }} >
+                  <Nav.Link href="politics">POLITICS</Nav.Link>
+                </Link>
+
                 <NavDropdown title="MORE" id="basic-nav-dropdown">
-                  <NavDropdown.Item href="entertainment">
-                    ENTERTAINMENT
-                  </NavDropdown.Item>
+                  <Link to={{ pathname: "/category", state: {category: 'Entertainment'} }} style={{ textDecoration: 'none' }} >
+                    <NavDropdown.Item href="entertainment">
+                      ENTERTAINMENT
+                    </NavDropdown.Item>
+                  </Link>
                   <NavDropdown.Item href="local">LOCAL</NavDropdown.Item>
-                  <NavDropdown.Item href="international">
-                    INTERNATIONAL
-                  </NavDropdown.Item>
+                  <Link to={{ pathname: "/category", state: {category: 'International'} }} style={{ textDecoration: 'none' }} >
+                    <NavDropdown.Item href="international">
+                      INTERNATIONAL
+                    </NavDropdown.Item>
+                  </Link>
                   <NavDropdown.Divider />
-                  <NavDropdown.Item href="sports">SPORTS</NavDropdown.Item>
+                  <Link to={{ pathname: "/category", state: {category: 'Sports'} }} style={{ textDecoration: 'none' }} >
+                    <NavDropdown.Item href="sports">SPORTS</NavDropdown.Item>
+                  </Link>
                 </NavDropdown>
                 <Nav.Link href="contact">CONTACT</Nav.Link>
                 {/*<NavDropdown title="Dropdown" id="basic-nav-dropdown">*/}

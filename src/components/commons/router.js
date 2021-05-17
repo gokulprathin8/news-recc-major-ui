@@ -12,6 +12,7 @@ import international from "../categories/international";
 import sports from "../categories/sports";
 import contact from "../categories/contact";
 import NewsDetail from "./newsDetail";
+import BaseCategory from "./baseCategory";
 
 const CustomRouter = (props) => {
   return (
@@ -29,6 +30,7 @@ const CustomRouter = (props) => {
         <Route path="/sports" exact component={sports} />
         <Route path="/contact" exact component={contact} />
         <Route path="/detail" exact render={(props) => <NewsDetail {...props} /> } />
+        <Route path="/category" exact render={(props) => <BaseCategory {...props} /> } />
       </Switch>
     </React.Fragment>
   );
