@@ -11,8 +11,11 @@ import {
 } from "react-bootstrap";
 import "./navbar.css";
 import { Link, NavLink } from "react-router-dom";
+import {connect} from "react-redux";
+import {logoutUser} from "../../redux/actions";
 
-const NavbarCustom = () => {
+const NavbarCustom = (props) => {
+
   return (
     <>
       <Container>
@@ -55,19 +58,37 @@ const NavbarCustom = () => {
                 {/*</NavDropdown>*/}
               </div>
             </Nav>
-            <Link to="/login">
-              <Button className="nav-button" variant="outline-primary">
-                Login
-              </Button>{" "}
-            </Link>
-            <Button className="nav-button" variant="outline-primary">
-              Register
-            </Button>{" "}
+            {props.auth.access ?
+                <React.Fragment>
+                  <Button className="nav-button" variant="outline-primary" onClick={() => {props.logoutUser()}}>
+                    Logout
+                  </Button>{" "}
+                </React.Fragment>
+                :
+                <React.Fragment>
+                  <Link to="/login">
+                  <Button className="nav-button" variant="outline-primary">
+                  Login
+                  </Button>{" "}
+                  </Link>
+                  <Button className="nav-button" variant="outline-primary">
+                  Register
+                  </Button>{" "}
+                </React.Fragment>
+            }
+
           </Navbar.Collapse>
         </Navbar>
       </Container>
     </>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth.user
+  }
+}
 
-export default NavbarCustom;
+export default connect(mapStateToProps, {
+  logoutUser
+})(NavbarCustom);

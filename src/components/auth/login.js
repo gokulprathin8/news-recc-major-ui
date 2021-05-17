@@ -1,10 +1,15 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import "./login.css";
+import { useHistory } from "react-router-dom";
 import { ReactComponent as BrandingImage } from "../../assets/images/logo.svg";
 import NavbarCustom from "../commons/navbar";
 import {Button, Form} from "react-bootstrap";
+import {auth} from "../../redux/actions";
+import {connect} from "react-redux";
 
-const Login = () => {
+const Login = (props) => {
+    let history = useHistory();
+
     const [values, setValues] = useState({
         username: "",
         password: ""
@@ -21,6 +26,8 @@ const Login = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log(values);
+        props.auth(values);
+        history.push('/')
     }
 
     return (
@@ -72,5 +79,12 @@ const Login = () => {
         </React.Fragment>
     )
 }
+const mapStateToProps = (state) => {
+    return {
 
-export default Login;
+    }
+}
+
+export default connect(mapStateToProps, {
+    auth
+})(Login);

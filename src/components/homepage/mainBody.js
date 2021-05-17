@@ -3,10 +3,16 @@ import {Button, Card, Col, Container, Row} from "react-bootstrap";
 import { Calendar, MessageCircle, Eye } from "react-feather";
 import { connect } from "react-redux";
 import "./mainBody.css";
-import {fetchCategory , fetchNews} from "../../redux/actions";
+import { useHistory } from "react-router-dom";
+import {fetchCategory , fetchNews, fetchLatestNews} from "../../redux/actions";
+import { Link } from "react-router-dom";
+
 
 const HomepageBody = (props) => {
+    let history = useHistory();
+
     useEffect(() => {
+        props.fetchLatestNews();
         props.fetchCategory();
         props.fetchNews();
     }, []);
@@ -15,11 +21,9 @@ const HomepageBody = (props) => {
     return (
         <React.Fragment>
             <Container>
-
                 <Row>
                     <Col  xs={8}>
-
-                        {props.news.map((elem) => {
+                        {props.news && props.news.getNews.map((elem) => {
                             return (
                             <React.Fragment>
 
@@ -41,7 +45,11 @@ const HomepageBody = (props) => {
                                         <Card.Text>
                                             {elem.description}
                                         </Card.Text>
-                                        <Button className="customButton" variant="primary">READ MORE >></Button>
+                                        <Link to={{ pathname: "/detail", state: {title: elem.title, category: elem.category.name, body: elem.description} }} >
+                                            <Button className="customButton" variant="primary" >READ MORE >></Button>
+                                        </Link>
+
+
                                     </Card.Body>
                                 </Card>
 
@@ -49,12 +57,6 @@ const HomepageBody = (props) => {
                             </React.Fragment>
                             )
                         })}
-
-
-
-
-
-
                     </Col>
 
 
@@ -203,11 +205,12 @@ const HomepageBody = (props) => {
 const mapStateToProps = (state) => {
     return {
         category: state.category.getCategory,
-        news: state.news.getNews
+        news: state.news
     }
 }
 
 export default connect(mapStateToProps, {
     fetchCategory,
-    fetchNews
+    fetchNews,
+    fetchLatestNews
 })(HomepageBody);

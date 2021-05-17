@@ -2,8 +2,11 @@ import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-import categoryReducer from "./categoryReducer";
+import authReducer from "./authReducer";
 import newsReducers from "./newsReducers";
+import categoryReducer from "./categoryReducer";
+import latestNewsReducer from "./latestNewsReducer";
+
 
 const persistConfig = {
     key: "news-recommendation",
@@ -11,6 +14,8 @@ const persistConfig = {
 }
 
 const rootReducer = combineReducers({
+    latestNews: latestNewsReducer,
+    auth: authReducer,
     category: categoryReducer,
     news: newsReducers,
 });
