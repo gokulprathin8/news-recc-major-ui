@@ -1,21 +1,91 @@
-import React, { useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Card, Col, Container, Row} from "react-bootstrap";
-import { Calendar, MessageCircle, Eye } from "react-feather";
-import { connect } from "react-redux";
+import {Calendar, Eye, MessageCircle} from "react-feather";
+import {connect} from "react-redux";
 import "./mainBody.css";
-import { useHistory } from "react-router-dom";
-import {fetchCategory , fetchNews, fetchLatestNews} from "../../redux/actions";
-import { Link } from "react-router-dom";
-
+import {Link, useHistory} from "react-router-dom";
+import {fetchCategory, fetchLatestNews, fetchNews, predict} from "../../redux/actions";
 
 const HomepageBody = (props) => {
     let history = useHistory();
+    let predictionValue = '';
 
     useEffect(() => {
         props.fetchLatestNews();
         props.fetchCategory();
         props.fetchNews();
+        props.predict(props.authToken);
     }, []);
+
+    let aggrigateBuilder = () => {
+        // let unique = []
+        // if (props.predictions.length > 0) {
+        //     props.predictions.map((element) => {
+        //         unique.push(element.category_name);
+        //     })
+        // }
+        // let filtered = [...new Set(unique)];
+        // let vengeance= {};
+        // const countOccurrences = (arr, val) => arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
+        // let totalLength = filtered.length;
+        // console.log(totalLength);
+        // for (let i=0; i<totalLength; i++) {
+        //     let tmp = filtered[i];
+        //     console.log(tmp);
+        //     // vengeance.filtered[i] = countOccurrences(props.predictions, filtered[i]);
+        //     console.log(countOccurrences(props.predictions, filtered[i]));
+        // }
+        // console.log(vengeance);
+
+        let lifeStyleCnt = 0;
+        let travel = 0;
+        let fashion = 0;
+        let politics = 0;
+        let entertainment = 0;
+        let localNews = 0;
+        let international = 0;
+        let sports = 0;
+
+        props.predictions.map((elem) => {
+            console.log(elem);
+            if (elem.category_name === "LifeStyle")  lifeStyleCnt++;
+            if (elem.category_name === "Travel") travel++;
+            if (elem.category_name === "Fashion") fashion++;
+            if (elem.category_name === "Politics") politics++;
+            if (elem.category_name === "Entertainment") entertainment++;
+            if (elem.category_name === "LocalNews") localNews++;
+            if (elem.category_name === "International") international++;
+            if (elem.category_name === "Sports") sports++;
+        });
+
+        let myarr = [lifeStyleCnt, travel, fashion, politics, entertainment, localNews, international, sports];
+        let myObj = {
+            'LifeStyle': 0,
+            'Travel': 0,
+            'Fashion': 0,
+            'Politics': 0,
+            'Entertainment': 0,
+            'LocalNews': 0,
+            'International': 0,
+            'Sports': 0
+        }
+
+        function indexOfMax(arr) {
+            if (arr.length === 0) {
+                return -1;
+            }
+            var max = arr[0];
+            var maxIndex = 0;
+            for (var i = 1; i < arr.length; i++) {
+                if (arr[i] > max) {
+                    maxIndex = i;
+                    max = arr[i];
+                }
+            }
+            return maxIndex;
+        }
+        predictionValue = Object.keys(myObj)[indexOfMax(myarr)];
+    }
 
 
     return (
@@ -23,10 +93,10 @@ const HomepageBody = (props) => {
             <Container>
                 <Row>
                     <Col  xs={8}>
+                        {aggrigateBuilder()}
                         {props.news && props.news.getNews.map((elem) => {
                             return (
                             <React.Fragment>
-
                                 <Card>
                                     <Card.Img variant="top" style={{ height: 600 }} src="https://images.unsplash.com/photo-1478940020726-e9e191651f1a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" />
                                     <Card.Body style={{ textAlign: 'center' }}>
@@ -45,7 +115,7 @@ const HomepageBody = (props) => {
                                         <Card.Text>
                                             {elem.description}
                                         </Card.Text>
-                                        <Link to={{ pathname: "/detail", state: {title: elem.title, category: elem.category.name, body: elem.description} }} >
+                                        <Link to={{ pathname: "/detail", state: {title: elem.title, category: elem.category, body: elem.description} }} >
                                             <Button className="customButton" variant="primary" >READ MORE >></Button>
                                         </Link>
 
@@ -205,12 +275,15 @@ const HomepageBody = (props) => {
 const mapStateToProps = (state) => {
     return {
         category: state.category.getCategory,
-        news: state.news
+        news: state.news,
+        authToken: state.auth.user.access,
+        predictions: state.predict.counts
     }
 }
 
 export default connect(mapStateToProps, {
     fetchCategory,
     fetchNews,
-    fetchLatestNews
+    fetchLatestNews,
+    predict
 })(HomepageBody);

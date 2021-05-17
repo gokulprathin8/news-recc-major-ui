@@ -6,6 +6,8 @@ import authReducer from "./authReducer";
 import newsReducers from "./newsReducers";
 import categoryReducer from "./categoryReducer";
 import latestNewsReducer from "./latestNewsReducer";
+import makeCountsReducer from "./makeCountsReducer";
+import makePredictionsReducer from "./makePredictionsReducer";
 
 
 const persistConfig = {
@@ -18,6 +20,8 @@ const rootReducer = combineReducers({
     auth: authReducer,
     category: categoryReducer,
     news: newsReducers,
+    counts: makeCountsReducer,
+    predict: makePredictionsReducer
 });
 
 export default  persistReducer(persistConfig, rootReducer);

@@ -1,11 +1,18 @@
-import React from "react";
+import React, {useState} from "react";
 import NavbarCustom from "./navbar";
 import "./newsDetails.css";
 import { useLocation } from "react-router-dom";
+import {connect} from "react-redux";
+import { postCounts } from "../../redux/actions";
 
 const NewsDetail = (props) => {
     const location = useLocation();
-    const { title, body } = location.state;
+    const { title, body, category } = location.state;
+
+    useState(() => {
+        console.log(category);
+        props.postCounts(category[0].name, props.authToken);
+    }, []);
 
     return (
         <React.Fragment>
@@ -40,5 +47,12 @@ NewsDetail.defaultProps = {
     views: 40
 
 };
+const mapStateToProps = (state) => {
+    return {
+        authToken: state.auth.user.access
+    }
+}
 
-export default NewsDetail;
+export default connect(mapStateToProps, {
+    postCounts
+})(NewsDetail);

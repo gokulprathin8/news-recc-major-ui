@@ -8,6 +8,11 @@ export default (state = { counts: {}, totalCounts: {} }, action) => {
         case FETCH_COUNTS:
             return {
                 ...state,
+                totalCounts: action.payload
+            }
+        case POST_COUNTS:
+            return {
+                ...state,
                 counts: action.payload
             }
         default:
