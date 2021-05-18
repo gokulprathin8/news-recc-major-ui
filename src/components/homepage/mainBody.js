@@ -4,7 +4,7 @@ import {Calendar, Eye, MessageCircle} from "react-feather";
 import {connect} from "react-redux";
 import "./mainBody.css";
 import {Link, useHistory} from "react-router-dom";
-import {fetchCategory, fetchLatestNews, fetchNews, predict} from "../../redux/actions";
+import {fetchCategory, fetchLatestNews, fetchNews, predict, fetchTrendingNews} from "../../redux/actions";
 
 const HomepageBody = (props) => {
     let history = useHistory();
@@ -19,6 +19,7 @@ const HomepageBody = (props) => {
 
         props.fetchNews(immortalId);
         props.predict(props.authToken);
+        props.fetchTrendingNews();
     }, []);
 
     function shuffle(array) {
@@ -170,38 +171,69 @@ const HomepageBody = (props) => {
                                 <h4 className="right-side-bar-heading">POPULAR POSTS</h4>
                                 <hr style={{ color: "orangered" }}/>
 
-                                <Row>
-                                    <Col xs={4}>
-                                        <img style={{ height: 100, width: 100 }} src="https://images.unsplash.com/photo-1620421680906-275860f61e27?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"  alt=""/>
-                                    </Col>
-                                    <Col>
-                                        <p>Certainty listening no behavior existence assurance situation</p>
-                                        <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-start" }}>
-                                            <p style={{ paddingRight: 5, paddingLeft: 5 }}> admin </p>
-                                            <Calendar />
-                                            <p style={{ paddingRight: 5, paddingLeft: 5 }}> 01 </p>
-                                            <Eye />
-                                            <p style={{ paddingRight: 5, paddingLeft: 5 }}> 301 </p>
-                                        </div>
-                                    </Col>
-                                </Row>
 
-                                <Row>
-                                    <Col xs={4}>
-                                        <img style={{ height: 100, width: 100 }} src="https://images.unsplash.com/photo-1620421680906-275860f61e27?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"  alt=""/>
-                                    </Col>
-                                    <Col>
-                                        <p>Certainty listening no behavior existence assurance situation</p>
-                                        <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-start" }}>
-                                            <p style={{ paddingRight: 5, paddingLeft: 5 }}> admin </p>
-                                            <Calendar />
-                                            <p style={{ paddingRight: 5, paddingLeft: 5 }}> 01 </p>
-                                            <Eye />
-                                            <p style={{ paddingRight: 5, paddingLeft: 5 }}> 301 </p>
-                                        </div>
-                                    </Col>
-                                </Row>
+                                {props.latestNews.slice(0, 5).map((element) => {
+                                    return (
+                                    <Row>
+                                        <Col xs={4}>
+                                            <img style={{ height: 100, width: 100, padding: 2 }} src="https://images.unsplash.com/photo-1620421680906-275860f61e27?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"  alt=""/>
+                                        </Col>
+                                        <Col>
+                                            <p>{element.title}</p>
+                                            <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-start" }}>
+                                                <p style={{ padding: 3 }}>  </p>
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                    )
+                                })}
 
+
+                                <div style={{ margin: 20 }} />
+
+                                <h4 className="right-side-bar-heading">TRENDING NEWS</h4>
+                                <hr style={{ color: "orangered" }} />
+
+                                {props.trending.map((element) => {
+                                    return (
+
+                                    <Card className="side-card-customize">
+                                        <Card.Img
+                                            style={{ height: 300 }}
+                                            variant="top"
+                                            src="https://images.unsplash.com/photo-1620652154541-149b1ac656c5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80"
+                                        />
+                                        <Card.Body>
+                                            <Card.Title>
+                                                {element.news.title}
+                                            </Card.Title>
+                                            <Card.Text>
+                                                {element.news.description}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                    )
+                                })}
+
+
+
+                                <Card className="side-card-customize">
+                                    <Card.Img
+                                        style={{ height: 300 }}
+                                        variant="top"
+                                        src="https://images.unsplash.com/photo-1611095565995-d09bbf618f6d?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80shttps://images.unsplash.com/photo-1611095565995-d09bbf618f6d?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80s"
+                                    />
+                                    <Card.Body>
+                                        <Card.Title>
+                                            Certainty listening no behavior existence assurance
+                                            situation
+                                        </Card.Title>
+                                        <Card.Text>
+                                            Some quick example text to build on the card title and
+                                            make up the bulk of the card's content.
+                                        </Card.Text>
+                                    </Card.Body>
+                                </Card>
 
 
                                 <div style={{ margin: 20 }} />
@@ -231,8 +263,8 @@ const HomepageBody = (props) => {
                                 <hr style={{ color: "orangered" }}/>
 
                                 <div style={{ display: "flex", justifyContent: "row" }}>
-                                    {/*<p className="tag-effect">hearted</p>*/}
-                                    {/*<p className="tag-effect">never</p>*/}
+                                    <p className="tag-effect">Politics</p>
+                                    <p className="tag-effect">Entertainment</p>
                                     {/*<p className="tag-effect">contants</p>*/}
                                     {/*<p className="tag-effect">abilities</p>*/}
                                     {/*<p className="tag-effect">promotion</p>*/}
@@ -255,7 +287,8 @@ const mapStateToProps = (state) => {
         news: state.news,
         authToken: state.auth.user.access,
         predictions: state.predict.counts,
-        latestNews: state.latestNews.data.data
+        latestNews: state.latestNews.data.data,
+        trending: state.trending.trending
     }
 }
 
@@ -263,5 +296,6 @@ export default connect(mapStateToProps, {
     fetchCategory,
     fetchNews,
     fetchLatestNews,
-    predict
+    predict,
+    fetchTrendingNews
 })(HomepageBody);

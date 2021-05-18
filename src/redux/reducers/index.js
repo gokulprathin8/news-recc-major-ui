@@ -8,6 +8,7 @@ import categoryReducer from "./categoryReducer";
 import latestNewsReducer from "./latestNewsReducer";
 import makeCountsReducer from "./makeCountsReducer";
 import makePredictionsReducer from "./makePredictionsReducer";
+import trendingNewsReducer from "./trendingNewsReducer";
 
 
 const persistConfig = {
@@ -21,7 +22,8 @@ const rootReducer = combineReducers({
     category: categoryReducer,
     news: newsReducers,
     counts: makeCountsReducer,
-    predict: makePredictionsReducer
+    predict: makePredictionsReducer,
+    trending: trendingNewsReducer
 });
 
 export default  persistReducer(persistConfig, rootReducer);
