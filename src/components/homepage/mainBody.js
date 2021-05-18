@@ -9,14 +9,36 @@ import {fetchCategory, fetchLatestNews, fetchNews, predict} from "../../redux/ac
 const HomepageBody = (props) => {
     let history = useHistory();
     let predictionValue = '';
-    let immortalId = 0;
+    let immortalId = '';
 
     useEffect(() => {
         props.fetchLatestNews();
-        props.fetchCategory();
-        props.fetchNews();
+
+        props.fetchCategory(immortalId);
+
+
+        props.fetchNews(immortalId);
         props.predict(props.authToken);
     }, []);
+
+    function shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+
+        return array;
+    }
 
     let aggrigateBuilder = () => {
         // let unique = []
@@ -48,7 +70,7 @@ const HomepageBody = (props) => {
         let sports = 0;
 
         props.predictions.map((elem) => {
-            console.log(elem);
+
             if (elem.category_name === "LifeStyle")  lifeStyleCnt++;
             if (elem.category_name === "Travel") travel++;
             if (elem.category_name === "Fashion") fashion++;
@@ -101,8 +123,11 @@ const HomepageBody = (props) => {
                                     immortalId = elem.id;
                                 }
                             })
-
                         }
+                        {/*{*/}
+                        {/*    props.auth.user.access ?*/}
+                        {/*        props.fetchCategory(immortalId) : null*/}
+                        {/*}*/}
                         {props.news && props.news.getNews.map((elem) => {
                             return (
                             <React.Fragment>
@@ -177,64 +202,7 @@ const HomepageBody = (props) => {
                                     </Col>
                                 </Row>
 
-                                <Row>
-                                    <Col xs={4}>
-                                        <img style={{ height: 100, width: 100 }} src="https://images.unsplash.com/photo-1620421680906-275860f61e27?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"  alt=""/>
-                                    </Col>
-                                    <Col>
-                                        <p>Certainty listening no behavior existence assurance situation</p>
-                                        <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-start" }}>
-                                            <p style={{ paddingRight: 5, paddingLeft: 5 }}> admin </p>
-                                            <Calendar />
-                                            <p style={{ paddingRight: 5, paddingLeft: 5 }}> 01 </p>
-                                            <Eye />
-                                            <p style={{ paddingRight: 5, paddingLeft: 5 }}> 301 </p>
-                                        </div>
-                                    </Col>
-                                </Row>
 
-                                <Row>
-                                    <Col xs={4}>
-                                        <img style={{ height: 100, width: 100 }} src="https://images.unsplash.com/photo-1620421680906-275860f61e27?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"  alt=""/>
-                                    </Col>
-                                    <Col>
-                                        <p>Certainty listening no behavior existence assurance situation</p>
-                                        <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-start" }}>
-                                            <p style={{ paddingRight: 5, paddingLeft: 5 }}> admin </p>
-                                            <Calendar />
-                                            <p style={{ paddingRight: 5, paddingLeft: 5 }}> 01 </p>
-                                            <Eye />
-                                            <p style={{ paddingRight: 5, paddingLeft: 5 }}> 301 </p>
-                                        </div>
-                                    </Col>
-                                </Row>
-
-                                <div style={{ margin: 20 }} />
-
-                                <h4 className="right-side-bar-heading">TRENDING NEWS</h4>
-                                <hr style={{ color: "orangered" }}/>
-
-                                <Card className="side-card-customize">
-                                    <Card.Img style={{ height: 300 }} variant="top" src="https://images.unsplash.com/photo-1620652154541-149b1ac656c5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80" />
-                                    <Card.Body>
-                                        <Card.Title>Certainty listening no behavior existence assurance situation</Card.Title>
-                                        <Card.Text>
-                                            Some quick example text to build on the card title and make up the bulk of
-                                            the card's content.
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Card>
-
-                                <Card className="side-card-customize">
-                                    <Card.Img style={{ height: 300 }} variant="top" src="https://images.unsplash.com/photo-1611095565995-d09bbf618f6d?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1351&q=80s" />
-                                    <Card.Body>
-                                        <Card.Title>Certainty listening no behavior existence assurance situation</Card.Title>
-                                        <Card.Text>
-                                            Some quick example text to build on the card title and make up the bulk of
-                                            the card's content.
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Card>
 
                                 <div style={{ margin: 20 }} />
 
@@ -286,7 +254,8 @@ const mapStateToProps = (state) => {
         category: state.category.getCategory,
         news: state.news,
         authToken: state.auth.user.access,
-        predictions: state.predict.counts
+        predictions: state.predict.counts,
+        latestNews: state.latestNews.data.data
     }
 }
 
